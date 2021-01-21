@@ -1,9 +1,9 @@
-import request from "supertest";
-import { app } from "../app";
+import request from 'supertest';
+import { app } from '../app';
 
-describe("GET /upload", () => {
-  it("Should return status code 200", async () => {
-    const result = await request(app).get("/").send();
+describe('GET /upload', () => {
+  it('Should return status code 200', async () => {
+    const result = await request(app).get('/').send();
 
     expect(result.status).toBe(200);
   });

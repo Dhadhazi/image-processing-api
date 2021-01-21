@@ -1,13 +1,11 @@
-import { Request, Response, Router } from "express";
-import multer from "multer";
-import config from "../config";
-import { resizeImage } from "../utils/resizeImage";
+import { Request, Response, Router } from 'express';
+import multer from 'multer';
+import config from '../config';
+import { resizeImage } from '../utils/resizeImage';
 
 export const UploadController: Router = Router();
 
-UploadController.get("/", (req: Request, res: Response) =>
-  res.status(200).send("Image Processing API")
-);
+UploadController.get('/', (req: Request, res: Response) => res.status(200).send('Image Processing API'));
 
 const storage = multer.diskStorage({
   destination: config.IMAGES_FOLDER,
@@ -18,17 +16,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-UploadController.post(
-  "/",
-  upload.single("image"),
-  async (req: Request, res: Response) => {
-    const { filename } = req.file;
-    const imageName = filename.split(".")[0];
-    const width = Number(req.query.w) || null;
-    const height = Number(req.query.h) || null;
+UploadController.post('/', upload.single('image'), async (req: Request, res: Response) => {
+  const { filename } = req.file;
+  const imageName = filename.split('.')[0];
+  const width = Number(req.query.w) || null;
+  const height = Number(req.query.h) || null;
 
-    if (width || height) resizeImage(imageName, width, height);
+  if (width || height) resizeImage(imageName, width, height);
 
-    return res.send("SUCCESS!");
-  }
-);
+  return res.send('SUCCESS!');
+});
