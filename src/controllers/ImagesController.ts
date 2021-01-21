@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 import config from "../config";
-import { resizeImage } from "../resize";
+import { resizeImage } from "../utils/resizeImage";
 import { fileExist } from "../utils/fileExist";
 import { generateFileName } from "../utils/generateFileName";
 

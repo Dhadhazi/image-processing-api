@@ -1,6 +1,6 @@
 import sharp from "sharp";
-import config from "./config";
-import { generateFileName } from "./utils/generateFileName";
+import config from "../config";
+import { generateFileName } from "./generateFileName";
 
 export async function resizeImage(
   imageName: string,

@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import multer from "multer";
 import config from "../config";
-import { resizeImage } from "../resize";
+import { resizeImage } from "../utils/resizeImage";
 
 export const UploadController: Router = Router();
 

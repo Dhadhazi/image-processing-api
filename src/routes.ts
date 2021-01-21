@@ -9,7 +9,7 @@ const _routes: [string, Router][] = [
   ["/images", ImagesController],
 ];
 
-export const routes = (app: Application) => {
+export const routes = (app: Application): void => {
   _routes.forEach((route) => {
     const [url, controller] = route;
     app.use(url, controller);
