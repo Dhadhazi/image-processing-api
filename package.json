@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc --project ./",
     "start": "nodemon src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "ts-node node_modules/jasmine/bin/jasmine --config=jasmine.json",
     "lint": "eslint ."
   },
   "author": "",
@@ -27,7 +27,9 @@
     "eslint": "^7.18.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-prettier": "^3.3.1",
+    "jasmine": "^3.6.4",
     "prettier": "^2.2.1",
+    "supertest": "^6.1.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
   }
