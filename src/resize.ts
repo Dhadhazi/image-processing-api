@@ -1,5 +1,6 @@
 import sharp from "sharp";
 import path from "path";
+import config from "./config";
 
 function generateFileName(
   imageName: string,
@@ -16,14 +17,16 @@ export async function resizeImage(
   imageName: string,
   width: number | null,
   height: number | null
-) {
-  const uploadsFolder = __dirname + "/uploads/";
+): Promise<string> {
+  const uploadsFolder = config.IMAGES_FOLDER;
   const resizedImageName = generateFileName(imageName, width, height);
-
-  await sharp(uploadsFolder + imageName + ".jpg")
-    .resize(width, height)
-    .jpeg({ quality: 50 })
-    .toFile(path.resolve(uploadsFolder, resizedImageName));
-
+  try {
+    await sharp(uploadsFolder + "/" + imageName + ".jpg")
+      .resize(width, height)
+      .jpeg({ quality: 50 })
+      .toFile(path.resolve(uploadsFolder, resizedImageName));
+  } catch (e) {
+    console.log(e);
+  }
   return resizedImageName;
 }

@@ -1,20 +1,19 @@
 import express from "express";
-import sharp from "sharp";
 import multer from "multer";
 import path from "path";
-import fs from "fs";
+// import fs from "fs";
 import bodyparser from "body-parser";
 import { resizeImage } from "./resize";
+import config from "./config";
 
 const app = express();
-const PORT = 8000;
 
 app.use(bodyparser.urlencoded({ extended: true }));
 
 app.get("/uploads", (req, res) => res.status(200).send("Image Processing API"));
 
 const storage = multer.diskStorage({
-  destination: path.resolve(__dirname, ".", "uploads"),
+  destination: config.IMAGES_FOLDER,
   filename: function (req, file, callback) {
     callback(null, file.originalname);
   },
@@ -28,11 +27,19 @@ app.post("/upload", upload.single("image"), async (req, res) => {
   const width = Number(req.query.w) || null;
   const height = Number(req.query.h) || null;
 
-  resizeImage(imageName, width, height);
+  if (width || height) resizeImage(imageName, width, height);
 
   return res.send("SUCCESS!");
 });
 
-app.listen(PORT, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
+app.get("/images/:imageName", async (req, res) => {
+  const { imageName } = req.params;
+  console.log(imageName);
+  return res.status(200).sendFile(`${config.IMAGES_FOLDER}/${imageName}`);
+});
+
+app.listen(config.PORT, () => {
+  console.log(
+    `⚡️[server]: Server is running at http://localhost:${config.PORT}`
+  );
 });
