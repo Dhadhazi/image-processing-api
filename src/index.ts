@@ -4,13 +4,14 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 import bodyparser from "body-parser";
+import { resizeImage } from "./resize";
 
 const app = express();
 const PORT = 8000;
 
 app.use(bodyparser.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => res.status(200).send("Image Processing API"));
+app.get("/uploads", (req, res) => res.status(200).send("Image Processing API"));
 
 const storage = multer.diskStorage({
   destination: path.resolve(__dirname, ".", "uploads"),
@@ -22,13 +23,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.post("/upload", upload.single("image"), async (req, res) => {
-  const { filename: image } = req.file;
+  const { filename } = req.file;
+  const imageName = filename.split(".")[0];
+  const width = Number(req.query.w) || null;
+  const height = Number(req.query.h) || null;
 
-  await sharp(__dirname + "/uploads/" + image)
-    .resize(100)
-    .jpeg({ quality: 50 })
-    .toFile(path.resolve(req.file.destination, "resized", image));
-  fs.unlinkSync(req.file.path);
+  resizeImage(imageName, width, height);
 
   return res.send("SUCCESS!");
 });
