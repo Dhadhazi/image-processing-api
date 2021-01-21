@@ -1,9 +1,10 @@
 import express from "express";
 import multer from "multer";
-// import fs from "fs";
+import fs from "fs";
 import bodyparser from "body-parser";
 import { resizeImage } from "./resize";
 import config from "./config";
+import { fileExist } from "./utils/fileExist";
 
 const app = express();
 
@@ -31,10 +32,31 @@ app.post("/upload", upload.single("image"), async (req, res) => {
   return res.send("SUCCESS!");
 });
 
+app.get("/images", (req, res) => {
+  res.status(200).send("Give image name as param");
+});
+
 app.get("/images/:imageName", async (req, res) => {
   const { imageName } = req.params;
-  console.log(imageName);
-  return res.status(200).sendFile(`${config.IMAGES_FOLDER}/${imageName}`);
+  const width = Number(req.query.w) || null;
+  const height = Number(req.query.h) || null;
+
+  if (width || height) {
+    // Get the resized image full name
+    // Check if resized image exists
+    //  If exists send back the link
+    // If does not exists, create it and send back the anme
+  }
+
+  const path = `${config.IMAGES_FOLDER}/${imageName}`;
+
+  if (fileExist(path)) {
+    return res.status(200).sendFile(path);
+  } else {
+    return res
+      .status(404)
+      .send("Image failed to process or base file does not exists");
+  }
 });
 
 app.listen(config.PORT, () => {

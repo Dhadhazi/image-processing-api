@@ -1,16 +1,6 @@
 import sharp from "sharp";
 import config from "./config";
-
-function generateFileName(
-  imageName: string,
-  width: number | null,
-  height: number | null
-) {
-  let name = imageName;
-  if (width) name += `-w${width}`;
-  if (height) name += `-h${height}`;
-  return `${name}.jpg`;
-}
+import { generateFileName } from "./utils/generateFileName";
 
 export async function resizeImage(
   imageName: string,
