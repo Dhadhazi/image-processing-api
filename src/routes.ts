@@ -1,5 +1,5 @@
 import { Application, Router } from "express";
-import { ImagesController } from "./controllers/ImagesController.ts";
+import { ImagesController } from "./controllers/ImagesController";
 import { IndexController } from "./controllers/IndexController";
 import { UploadController } from "./controllers/UploadController";
 
