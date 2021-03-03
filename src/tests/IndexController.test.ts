@@ -1,10 +1,10 @@
 import request from 'supertest';
 import { app } from '../app';
 
-describe('GET /', () => {
-  it('Should return status code 200', async () => {
+describe('GET / endpoint test', () => {
+  it('Should return status code 200', async (done) => {
     const result = await request(app).get('/').send();
-
     expect(result.status).toBe(200);
+    done();
   });
 });
