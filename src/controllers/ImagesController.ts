@@ -25,12 +25,11 @@ ImagesController.get('/:imageName', async (req: Request, res: Response) => {
       const resizedImageName = generateFileName(imageNameWithoutExtension, width, height);
       const resizedImagePath = `${config.IMAGES_FOLDER}/${resizedImageName}`;
 
-      if (fileExist(resizedImagePath)) {
-        return res.status(200).sendFile(resizedImagePath);
-      } else {
+      if (!fileExist(resizedImagePath)) {
         await resizeImage(imageNameWithoutExtension, width, height);
-        return res.status(200).sendFile(resizedImagePath);
-      }
+      } 
+      
+      return res.status(200).sendFile(resizedImagePath);
     } else {
       return res.status(200).sendFile(path);
     }
