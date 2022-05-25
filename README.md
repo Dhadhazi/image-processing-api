@@ -10,6 +10,8 @@ npm build -> To build the app
 
 ## Endpoints
 
+- /
+  - endpoint for health checking, always returns 200 code (example: http://localhost:8000/)
 - /images
   - adding file name gets the file (images/fjord.jpg)
   - can generate any size of the file by adding queries:
@@ -21,3 +23,6 @@ npm build -> To build the app
     - converted image name: FILENAME-w(SIZE)-h(SIZE) only adds -w or -h if it is modified
 - /uploads
   - ability to upload images, no verification
+
+
+Example with url: http://localhost:8000/images/fjord.jpg?w=200&h=800

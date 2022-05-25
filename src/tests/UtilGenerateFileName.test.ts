@@ -8,7 +8,7 @@ describe('Should return nice.jpg', () => {
   });
 });
 
-describe('Test for proper naming', () => {
+describe('Test for proper nameing', () => {
   it('Should return nice-w200.jpg', () => {
     const result = generateFileName('nice', 200, null);
 
@@ -16,7 +16,7 @@ describe('Test for proper naming', () => {
   });
 });
 
-describe('Test for proper naming', () => {
+describe('Test for proper nameing', () => {
   it('Should return nice-h200.jpg', () => {
     const result = generateFileName('nice', null, 200);
 
@@ -24,7 +24,7 @@ describe('Test for proper naming', () => {
   });
 });
 
-describe('Test for proper naming', () => {
+describe('Test for proper nameing', () => {
   it('Should return nice-w200-h200.jpg', () => {
     const result = generateFileName('nice', 200, 200);
 
